@@ -1,39 +1,27 @@
-var flashNPS = {
-    netPromoter:{questionID: "58884e79ce87710cc89b1215"},
-    defaultIndex: false,
-    detractors: 23,
-    netPromoters: 50,
-    passive: 18,
-    promoters: 59,
-    questionID: "58884e79ce87710cc89b1215",
-    questionText: "Based on this experience, how likely are you to recommend Cloudcherry to your friends or family?",
-    totalResponses: 4
-}
-
-var red = flashNPS.detractors;
-var yellow = flashNPS.passive;
-var green = flashNPS.promoters;
-
+var LatestScore = [];
+var red;
+var yellow;
+var green;
+var npsScore;
 
 function showNPS(ccDisplayNPSValue){
-    var npsScore = green-red;
-	ccDisplayNPSValue.innerHTML = Math.trunc(npsScore);
+	ccDisplayNPSValue.innerHTML = npsScore;
 }
 function showLabels(ccDetractorsPercent,ccPassivesPercent,ccPromotersPercent){
-	ccDetractorsPercent.innerHTML = Math.trunc(red)+'%';
-    ccPassivesPercent.innerHTML = Math.trunc(yellow)+'%';
-    ccPromotersPercent.innerHTML = Math.trunc(green)+'%';
+	ccDetractorsPercent.innerHTML = red +'%';
+    ccPassivesPercent.innerHTML = yellow +'%';
+    ccPromotersPercent.innerHTML = green +'%';
 }
 function showChart(ccDetractChart,ccPassiveChart,ccPromoterChart){
-    ccDetractChart.style.width = Math.trunc(red) + '%';
-    ccPassiveChart.style.width = Math.trunc(yellow)+ '%';
-    ccPromoterChart.style.width = Math.trunc(green)+ '%';
+    ccDetractChart.style.width = red + '%';
+    ccPassiveChart.style.width = yellow + '%';
+    ccPromoterChart.style.width = green + '%';
 }
 function getCall(){
     var httpRequest;
     var apiKey = "cxdemo";
     var user = "cxdemo";
-    var location = "Booking Experience";
+    var location = "Travel Experience";
     var url = "https://api.getcloudcherry.com/api/LatestScore/" + user + "/" + apiKey + "/" + location;
     httpRequest = new XMLHttpRequest();
 
@@ -42,14 +30,19 @@ function getCall(){
         return false;
     }
     httpRequest.onreadystatechange = displayContents;
-    /*httpRequest.withCredentials = true;*/
     httpRequest.open('GET',url);
-    httpRequest.setRequestHeader('Access-Control-Allow-Origin','https://api.getcloudcherry.com');
     httpRequest.send();
     function displayContents(){
         if(httpRequest.readyState === XMLHttpRequest.DONE){
             if(httpRequest.status === 200){
-                alert(httpRequest.responseText);
+                LatestScore = JSON.parse(httpRequest.responseText);
+
+                red = LatestScore[0].netpromoter.detractors;
+                yellow = LatestScore[0].netpromoter.passive;
+                green = LatestScore[0].netpromoter.promoters;
+                npsScore = LatestScore[0].netpromoter.netPromoters;
+                createDocument();
+       
             }
             else{
                 alert('Problem');
@@ -162,7 +155,7 @@ function createDocument(){
 
     ccLabels.appendChild(ccLabel3);
     ccLabel3.appendChild(ccPromotersPrint);
-    ccLabel3.appendChild(ccLabelDim3)
+    ccLabel3.appendChild(ccLabelDim3);
     ccLabelDim3.appendChild(ccLabelProp3);
     ccLabelDim3.appendChild(ccPromotersPercent);
 
@@ -183,5 +176,4 @@ function createDocument(){
     Destination.appendChild(ccBlackBox);
 
 }
-createDocument();
-getCall();        
+getCall(); 
