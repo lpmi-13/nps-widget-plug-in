@@ -4,25 +4,22 @@ var yellow;
 var green;
 var npsScore;
 
-function showNPS(ccDisplayNPSValue){
+function ccShowNPS(ccDisplayNPSValue){
 	ccDisplayNPSValue.innerHTML = npsScore;
 }
-function showLabels(ccDetractorsPercent,ccPassivesPercent,ccPromotersPercent){
+function ccShowLabels(ccDetractorsPercent,ccPassivesPercent,ccPromotersPercent){
 	ccDetractorsPercent.innerHTML = red +'%';
     ccPassivesPercent.innerHTML = yellow +'%';
     ccPromotersPercent.innerHTML = green +'%';
 }
-function showChart(ccDetractChart,ccPassiveChart,ccPromoterChart){
+function ccShowChart(ccDetractChart,ccPassiveChart,ccPromoterChart){
     ccDetractChart.style.width = red + '%';
     ccPassiveChart.style.width = yellow + '%';
     ccPromoterChart.style.width = green + '%';
 }
-function getCall(){
+function ccGetCall(user,RSS_key,location){
     var httpRequest;
-    var apiKey = "cxdemo";
-    var user = "cxdemo";
-    var location = "Travel Experience";
-    var url = "https://api.getcloudcherry.com/api/LatestScore/" + user + "/" + apiKey + "/" + location;
+    var url = `https://api.getcloudcherry.com/api/LatestScore/${user}/${RSS_key}/${location}`;
     httpRequest = new XMLHttpRequest();
 
     if(!httpRequest){
@@ -41,8 +38,7 @@ function getCall(){
                 yellow = LatestScore[0].netpromoter.passive;
                 green = LatestScore[0].netpromoter.promoters;
                 npsScore = LatestScore[0].netpromoter.netPromoters;
-                createDocument();
-       
+                createDocument(); 
             }
             else{
                 alert('Problem');
@@ -50,130 +46,108 @@ function getCall(){
         }
     }
 }
+function ccGetCredentials(){
+    var scripts = document.getElementsByTagName('script');
+    var lastScript = scripts[scripts.length-1];
+    var scriptName = lastScript;
 
+    var user = scriptName.getAttribute('user');
+    var RSS_key = scriptName.getAttribute('RSS_key');
+    var location  = scriptName.getAttribute('location');
+
+    ccGetCall(user,RSS_key,location); 
+}
+function createNewElement(ele_type,nameClass,nameId){
+    var newElement = document.createElement(ele_type);
+
+    if(nameClass != null){
+        newElement.className = nameClass;
+    }
+    if(nameId != null){
+        newElement.id = nameId;
+    }
+    
+    return newElement;
+}
+function makeChild(parent_ele,arr){
+    
+    for(var i=0;i<arr.length;i++){
+        parent_ele.appendChild(arr[i]);
+    }
+
+    return parent_ele;
+}
 function createDocument(){
+    var ccBlackBox = createNewElement("div","cc-black-box",null);
 
-    var ccBlackBox = document.createElement("div");
-    ccBlackBox.className = "cc-black-box";
-
-    var ccTitle = document.createElement("div");
-    ccTitle.className = "cc-title";
+    var ccTitle = createNewElement("div","cc-title",null);
     ccTitle.innerHTML = "Net Promoter Score(NPS)";
 
-    var ccChartNPS = document.createElement("div");
-    ccChartNPS.className = "cc-chart-NPS";
+    var ccChartNPS = createNewElement("div","cc-chart-NPS",null);
 
-    var ccChart = document.createElement("div");
-    ccChart.className = "cc-chart";
+    var ccChart = createNewElement("div","cc-chart",null);
 
-    var ccDetractChart = document.createElement("div");
-    var ccPassiveChart = document.createElement("div");
-    var ccPromoterChart = document.createElement("div");
+    var ccDetractChart = createNewElement("div",null,"cc-detract-chart");
+    var ccPassiveChart = createNewElement("div",null,"cc-passive-chart");
+    var ccPromoterChart = createNewElement("div",null,"cc-promoter-chart");
 
-    ccDetractChart.id = "cc-detract-chart";
-    ccPassiveChart.id = "cc-passive-chart";
-    ccPromoterChart.id = "cc-promoter-chart";
+    ccChart = makeChild(ccChart,[ccDetractChart,ccPassiveChart,ccPromoterChart]);
 
-    ccChart.appendChild(ccDetractChart);
-    ccChart.appendChild(ccPassiveChart)
-    ccChart.appendChild(ccPromoterChart)
+    var ccNPS = createNewElement("div","cc-NPS",null);
 
-    var ccNPS = document.createElement("div");
-    ccNPS.className = "cc-NPS";
-
-    var ccDisplayNPS = document.createElement("div");
+    var ccDisplayNPS = createNewElement("div","cc-display-NPS",null);
     ccDisplayNPS.innerHTML = "NPS SCORE";
-    ccDisplayNPS.className = "cc-display-NPS";
 
-    var ccDisplayNPSValue = document.createElement("div");
-    ccDisplayNPSValue.id = "cc-display-NPS-value";
+    var ccDisplayNPSValue = createNewElement("div",null,"cc-display-NPS-value");
 
-    ccNPS.appendChild(ccDisplayNPS);
-    ccNPS.appendChild(ccDisplayNPSValue);
-    ccChartNPS.appendChild(ccChart);
-    ccChartNPS.appendChild(ccNPS);
+    ccNPS = makeChild(ccNPS,[ccDisplayNPS,ccDisplayNPSValue]);
+    ccChartNPS = makeChild(ccChartNPS,[ccChart,ccNPS]);
     
-    var ccLabels = document.createElement("div");
-    ccLabels.className = "cc-labels";
-    
-    var ccLabel1 = document.createElement("div");
-    ccLabel1.className = "cc-label";
+    var ccLabels = createNewElement("div","cc-labels",null);
 
-    var ccDetractorsPrint = document.createElement("div");
+    var ccLabel1 = createNewElement("div","cc-label",null);
+    var ccLabel2 = createNewElement("div","cc-label",null);
+    var ccLabel3 = createNewElement("div","cc-label",null);
+
+    var ccDetractorsPrint = createNewElement("div",null,null);
+    var ccPassivesPrint = createNewElement("div",null,null);
+    var ccPromotersPrint = createNewElement("div",null,null);
+
     ccDetractorsPrint.innerHTML = "Detractors";
-
-    var ccLabelDim1 = document.createElement("div");
-    ccLabelDim1.className = "cc-label-dim";
-
-    var ccLabelProp1 = document.createElement("div");
-    ccLabelProp1.className = "cc-label-prop";
-
-    var ccDetractorsPercent = document.createElement("div");
-    ccDetractorsPercent.id = "cc-detractors-percent";
-
-    ccLabels.appendChild(ccLabel1);
-    ccLabel1.appendChild(ccDetractorsPrint);
-    ccLabel1.appendChild(ccLabelDim1)
-    ccLabelDim1.appendChild(ccLabelProp1);
-    ccLabelDim1.appendChild(ccDetractorsPercent);
-    
-    var ccLabel2 = document.createElement("div");
-    ccLabel2.className = "cc-label";
-
-    var ccPassivesPrint = document.createElement("div");
     ccPassivesPrint.innerHTML = "Passives";
-
-    var ccLabelDim2 = document.createElement("div");
-    ccLabelDim2.className = "cc-label-dim";
-
-    var ccLabelProp2 = document.createElement("div");
-    ccLabelProp2.className = "cc-label-prop";
-
-    var ccPassivesPercent = document.createElement("div");
-    ccPassivesPercent.id = "cc-passives-percent";
-
-    ccLabels.appendChild(ccLabel2);
-    ccLabel2.appendChild(ccPassivesPrint);
-    ccLabel2.appendChild(ccLabelDim2)
-    ccLabelDim2.appendChild(ccLabelProp2);
-    ccLabelDim2.appendChild(ccPassivesPercent);
-
-    var ccLabel3 = document.createElement("div");
-    ccLabel3.className = "cc-label";
-
-    var ccPromotersPrint = document.createElement("div");
     ccPromotersPrint.innerHTML = "Promoters";
 
-    var ccLabelDim3 = document.createElement("div");
-    ccLabelDim3.className = "cc-label-dim";
+    var ccLabelDim1 = createNewElement("div","cc-label-dim",null);
+    var ccLabelDim2 = createNewElement("div","cc-label-dim",null);
+    var ccLabelDim3 = createNewElement("div","cc-label-dim",null);
 
-    var ccLabelProp3 = document.createElement("div");
-    ccLabelProp3.className = "cc-label-prop";
+    var ccLabelProp1 = createNewElement("div","cc-label-prop",null);
+    var ccLabelProp2 = createNewElement("div","cc-label-prop",null);
+    var ccLabelProp3 = createNewElement("div","cc-label-prop",null);
 
-    var ccPromotersPercent = document.createElement("div");
-    ccPromotersPercent.id = "cc-promoters-percent";
+    var ccDetractorsPercent = createNewElement("div",null,"cc-detractors-percent");
+    var ccPassivesPercent = createNewElement("div",null,"cc-passives-percent");
+    var ccPromotersPercent = createNewElement("div",null,"cc-promoters-percent");
 
-    ccLabels.appendChild(ccLabel3);
-    ccLabel3.appendChild(ccPromotersPrint);
-    ccLabel3.appendChild(ccLabelDim3);
-    ccLabelDim3.appendChild(ccLabelProp3);
-    ccLabelDim3.appendChild(ccPromotersPercent);
+    ccLabels = makeChild(ccLabels,[ccLabel1,ccLabel2,ccLabel3]);
 
-    ccLabels.appendChild(ccLabel1);
-    ccLabels.appendChild(ccLabel2);
-    ccLabels.appendChild(ccLabel3);
+    ccLabel1 = makeChild(ccLabel1,[ccDetractorsPrint,ccLabelDim1]);
+    ccLabel2 = makeChild(ccLabel2,[ccPassivesPrint,ccLabelDim2]);
+    ccLabel3 = makeChild(ccLabel3,[ccPromotersPrint,ccLabelDim3]);
 
-
-    ccBlackBox.appendChild(ccTitle);
-    ccBlackBox.appendChild(ccChartNPS);
-    ccBlackBox.appendChild(ccLabels);
-
-    showNPS(ccDisplayNPSValue);
-    showLabels(ccDetractorsPercent,ccPassivesPercent,ccPromotersPercent);
-    showChart(ccDetractChart,ccPassiveChart,ccPromoterChart);
+    ccLabelDim1 = makeChild(ccLabelDim1,[ccLabelProp1,ccDetractorsPercent]);
+    ccLabelDim2 = makeChild(ccLabelDim2,[ccLabelProp2,ccPassivesPercent]);
+    ccLabelDim3 = makeChild(ccLabelDim3,[ccLabelProp3,ccPromotersPercent]);
+    
+    ccBlackBox = makeChild(ccBlackBox,[ccTitle,ccChartNPS,ccLabels]);
+   
+    ccShowNPS(ccDisplayNPSValue);
+    ccShowLabels(ccDetractorsPercent,ccPassivesPercent,ccPromotersPercent);
+    ccShowChart(ccDetractChart,ccPassiveChart,ccPromoterChart);
 
     var Destination = document.getElementById("cc-widget-plug-in");
     Destination.appendChild(ccBlackBox);
 
 }
-getCall(); 
+ccGetCredentials()
+

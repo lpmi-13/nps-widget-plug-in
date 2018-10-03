@@ -1,94 +1,90 @@
-
 .cc-black-box {
-    width: 100%;
-    height: 100%; }
-  
-  .cc-title {
-    font-size: 15px;
-    height: 9.375%;
-    width: 100%; }
-  
-  .cc-chart-NPS {
-    width: 100%;
-    height: calc(100% - 31.25% - 9.375% - 15px - 10px);
-    margin-top: 15px; }
-    
-  .cc-chart {
-    width: calc(100% - 100px);
-    margin-right: -5px;
-    display: inline-block;
-    height:78.57%; }
-  
-  #cc-detract-chart,
-  #cc-passive-chart,
-  #cc-promoter-chart {
-    margin-right: -5px;
-    background-color: #EF5451;
-    display: inline-block;
-    height: 100%; }
-  
-  .cc-NPS {
-    width: 100px;
-    display: inline-block;
-    height: 100%;
-    vertical-align: top;}
-    
-  #cc-display-NPS-value {
-    font-size: 30px;
-    text-align: right;}
-    
-  .cc-display-NPS{
-    text-align: right;
-  }
-  
-  .cc-labels{
-    height: 31.25%;
-    width: calc(100% - 100px);
-    margin-top: 10px; }
-    
-  #cc-passive-chart {
-    background-color: #F5C664;}
-  
-  #cc-promoter-chart {
-    background-color: #7EB780; }
-  
-  .cc-label {
-    display: inline-block;
-    width: 100px;
-    height: 100%;
-    margin-right: -5px; }
-    
-  .cc-label:nth-child(2)  ,
-  .cc-label:nth-child(3){
-    margin-left: calc((100% - 300px)/2); }
-  
-  .cc-label-dim {
-    margin-top: 10px;
-    height: 15px;
-   }
-  
-  .cc-label-prop {
-    width: 15px;
-    display: inline-block;
-    height: 100%; } 
-  
-  .cc-label:nth-child(1) .cc-label-prop {
-    background-color: #EF5451;}
-  
-  .cc-label:nth-child(2) .cc-label-prop{
-    background-color: #F5C664;}
-  
-  .cc-label:nth-child(3) .cc-label-prop{
-    background-color: #7EB780;}
-  
-  #cc-detractors-percent,
-  #cc-passives-percent,
-  #cc-promoters-percent {
-    display: inline-block;
-    margin-left: 10px;
-    height:100%;
-    font-size:16px;
-    vertical-align: top; }
-  
-  /*# sourceMappingURL=nps-new.css.map */
-  
+  width: 100%;
+  height: 100%;
+  line-height: 1; }
+
+.cc-title {
+font-size: 15px;
+height: 9.375%;
+width: 100%; }
+
+.cc-chart-NPS {
+width: 100%;
+height: calc(100% - 31.25% - 9.375% - 15px - 10px);
+margin-top: 15px; }
+
+.cc-chart {
+width: calc(100% - 100px);
+display: inline-block;
+height: 78.57%; }
+
+#cc-detract-chart,
+#cc-passive-chart,
+#cc-promoter-chart {
+background-color: #EF5451;
+display: inline-block;
+height: 100%; }
+
+.cc-NPS {
+width: 100px;
+display: inline-block;
+height: 100%;
+vertical-align: top;}
+
+#cc-display-NPS-value {
+font-size: 30px;
+text-align: right;}
+
+.cc-display-NPS{
+text-align: right;
+}
+
+.cc-labels{
+height: 31.25%;
+width: calc(100% - 100px);
+margin-top: 10px; }
+
+#cc-passive-chart {
+background-color: #F5C664;}
+
+#cc-promoter-chart {
+background-color: #7EB780; }
+
+.cc-label {
+display: inline-block;
+width: 100px;
+height: 100%;}
+
+.cc-label:nth-child(2)  ,
+.cc-label:nth-child(3){
+margin-left: calc((100% - 300px)/2); }
+
+.cc-label-dim {
+margin-top: 10px;
+height: 15px;
+}
+
+.cc-label-prop {
+width: 15px;
+display: inline-block;
+height: 100%; } 
+
+.cc-label:nth-child(1) .cc-label-prop {
+background-color: #EF5451;}
+
+.cc-label:nth-child(2) .cc-label-prop{
+background-color: #F5C664;}
+
+.cc-label:nth-child(3) .cc-label-prop{
+background-color: #7EB780;}
+
+#cc-detractors-percent,
+#cc-passives-percent,
+#cc-promoters-percent {
+display: inline-block;
+margin-left: 10px;
+height:100%;
+font-size:15px;
+vertical-align: top; }
+
+/*# sourceMappingURL=nps-new.css.map */
