@@ -5,18 +5,18 @@
 
 .cc-title {
 font-size: 15px;
-height: 9.375%;
+height: 15px;
 width: 100%; }
 
 .cc-chart-NPS {
 width: 100%;
-height: calc(100% - 31.25% - 9.375% - 15px - 10px);
+height: calc(160px - 50px - 15px - 15px - 10px);
 margin-top: 15px; }
 
 .cc-chart {
 width: calc(100% - 100px);
 display: inline-block;
-height: 78.57%; }
+height: 55px; }
 
 #cc-detract-chart,
 #cc-passive-chart,
@@ -40,7 +40,7 @@ text-align: right;
 }
 
 .cc-labels{
-height: 31.25%;
+height: 50px;
 width: calc(100% - 100px);
 margin-top: 10px; }
 
@@ -87,4 +87,4 @@ height:100%;
 font-size:15px;
 vertical-align: top; }
 
-/*# sourceMappingURL=nps-new.css.map */
+

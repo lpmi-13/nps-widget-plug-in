@@ -47,10 +47,8 @@ function ccGetCall(user,RSS_key,location){
     }
 }
 function ccGetCredentials(){
-    var scripts = document.getElementsByTagName('script');
-    var lastScript = scripts[scripts.length-1];
-    var scriptName = lastScript;
 
+    var scriptName = document.getElementById('cc-widget-script');
     var user = scriptName.getAttribute('user');
     var RSS_key = scriptName.getAttribute('RSS_key');
     var location  = scriptName.getAttribute('location');
@@ -91,7 +89,7 @@ function createDocument(){
     var ccPassiveChart = createNewElement("div",null,"cc-passive-chart");
     var ccPromoterChart = createNewElement("div",null,"cc-promoter-chart");
 
-    ccChart = makeChild(ccChart,[ccDetractChart,ccPassiveChart,ccPromoterChart]);
+    makeChild(ccChart,[ccDetractChart,ccPassiveChart,ccPromoterChart]);
 
     var ccNPS = createNewElement("div","cc-NPS",null);
 
@@ -100,8 +98,8 @@ function createDocument(){
 
     var ccDisplayNPSValue = createNewElement("div",null,"cc-display-NPS-value");
 
-    ccNPS = makeChild(ccNPS,[ccDisplayNPS,ccDisplayNPSValue]);
-    ccChartNPS = makeChild(ccChartNPS,[ccChart,ccNPS]);
+    makeChild(ccNPS,[ccDisplayNPS,ccDisplayNPSValue]);
+    makeChild(ccChartNPS,[ccChart,ccNPS]);
     
     var ccLabels = createNewElement("div","cc-labels",null);
 
@@ -129,24 +127,27 @@ function createDocument(){
     var ccPassivesPercent = createNewElement("div",null,"cc-passives-percent");
     var ccPromotersPercent = createNewElement("div",null,"cc-promoters-percent");
 
-    ccLabels = makeChild(ccLabels,[ccLabel1,ccLabel2,ccLabel3]);
+    makeChild(ccLabels,[ccLabel1,ccLabel2,ccLabel3]);
 
-    ccLabel1 = makeChild(ccLabel1,[ccDetractorsPrint,ccLabelDim1]);
-    ccLabel2 = makeChild(ccLabel2,[ccPassivesPrint,ccLabelDim2]);
-    ccLabel3 = makeChild(ccLabel3,[ccPromotersPrint,ccLabelDim3]);
+    makeChild(ccLabel1,[ccDetractorsPrint,ccLabelDim1]);
+    makeChild(ccLabel2,[ccPassivesPrint,ccLabelDim2]);
+    makeChild(ccLabel3,[ccPromotersPrint,ccLabelDim3]);
 
-    ccLabelDim1 = makeChild(ccLabelDim1,[ccLabelProp1,ccDetractorsPercent]);
-    ccLabelDim2 = makeChild(ccLabelDim2,[ccLabelProp2,ccPassivesPercent]);
-    ccLabelDim3 = makeChild(ccLabelDim3,[ccLabelProp3,ccPromotersPercent]);
+    makeChild(ccLabelDim1,[ccLabelProp1,ccDetractorsPercent]);
+    makeChild(ccLabelDim2,[ccLabelProp2,ccPassivesPercent]);
+    makeChild(ccLabelDim3,[ccLabelProp3,ccPromotersPercent]);
     
-    ccBlackBox = makeChild(ccBlackBox,[ccTitle,ccChartNPS,ccLabels]);
+    makeChild(ccBlackBox,[ccTitle,ccChartNPS,ccLabels]);
    
     ccShowNPS(ccDisplayNPSValue);
     ccShowLabels(ccDetractorsPercent,ccPassivesPercent,ccPromotersPercent);
     ccShowChart(ccDetractChart,ccPassiveChart,ccPromoterChart);
 
-    var Destination = document.getElementById("cc-widget-plug-in");
-    Destination.appendChild(ccBlackBox);
+    var Destination = document.getElementsByClassName("cc-widget-plug-in");
+
+    for(let i=0;i<Destination.length;i++){
+        makeChild(Destination[i],[ccBlackBox]);
+    }
 
 }
 ccGetCredentials()
