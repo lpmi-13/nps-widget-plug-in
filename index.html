@@ -2,52 +2,65 @@
 <html>
    
     <head>
-        <link rel="stylesheet" href="style.css">                 
+        <link rel="stylesheet" href="style.css">     
+        <style>
+            
+
+        </style>            
     </head>
     <body>      
         <div class="cc-black-box">
             <div class="cc-title">        
                 <b>Net Promoter Score(NPS)<sup>&#174</sup></b>
-            </div>            
-            <div class="cc-chart-NPS">
-                <div class="cc-chart">
-                    <div id="cc-detract-chart"> </div>
-                    <div id="cc-passive-chart"> </div>                       
-                    <div id="cc-promoter-chart"> </div>                                  
-                </div>
-            
-                <div class="cc-NPS">                                                            
-                    <div class="cc-display-NPS" > <b>NPS SCORE</b> </div>
-                    <div id="cc-display-NPS-value"> </div>
-                </div>
-            </div>
-        
-            <div class="cc-labels">
-                <div class="cc-label">    
-                    <div> Detractors </div>                                        
-                    <div class="cc-label-dim">
-                        <div class="cc-label-prop"> </div>                                                       
-                        <div id="cc-detractors-percent"> </div>
-                    </div>
-                </div>
-            
-                <div class="cc-label">              
-                    <div> Passives </div>
-                    <div class="cc-label-dim">                                
-                        <div class="cc-label-prop" > </div>                                 
-                        <div id="cc-passives-percent"> </div>                                  
-                    </div>
-                </div>
-            
-                <div class="cc-label">                                        
-                    <div> Promoters </div>                                
-                    <div class="cc-label-dim">                                
-                        <div class="cc-label-prop"> </div>                                   
-                        <div id="cc-promoters-percent"> </div>                                       
-                    </div>
-                </div>                       
-            </div>       
+            </div>  
+
+            <table class="cc-chart-NPS">
+                <tr>
+                    <td>
+                        <table class="cc-chart">
+                            <tr>
+                                <td id="cc-detract-chart"></td>
+                                <td id="cc-passive-chart"></td>
+                                <td id="cc-promoter-chart"></td>
+                            </tr>
+                        </table>
+                    </td>        
+                    <td class="cc-NPS">
+                        <table class="cc-display-NPS">
+                            <tr>
+                                <td class="cc-NPS-caption"> NPS SCORE </td>     
+                            </tr>
+                            <tr>
+                                <td id="cc-display-NPS-value"> </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <table  class="cc-labels"> 
+                <tr>
+                    <td class="cc-label-caption" colspan="2"> Detractors </td> 
+                    <td class="cc-label-caption" colspan="2"> Passives </td> 
+                    <td class="cc-label-caption" colspan="2"> Promoters </td> 
+                </tr>
+                <tr>
+                    <td class="cc-label-legend">                          
+                        <div class="cc-label-prop"> </div>
+                    </td>
+                    <td id="cc-detractors-percent"> </td>
+                    <td class="cc-label-legend">
+                        <div class="cc-label-prop"> </div>   
+                    </td>
+                    <td id="cc-passives-percent"> </td>
+                    <td class="cc-label-legend">
+                        <div class="cc-label-prop"> </div>
+                    </td>
+                    <td id="cc-promoters-percent"> </td>
+                </tr>
+            </table>
         </div>
-        <script src="nps.js"></script>
+        <script type="text/javascript" src="nps2.js" ></script>
     </body>
 </html>
+

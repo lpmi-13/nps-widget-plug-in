@@ -19,7 +19,7 @@ function ccShowChart(ccDetractChart,ccPassiveChart,ccPromoterChart){
 }
 function ccGetCall(user,RSS_key,location){
     var httpRequest;
-    var url = `https://api.getcloudcherry.com/api/LatestScore/${user}/${RSS_key}/${location}`;
+    var url = "https://api.getcloudcherry.com/api/LatestScore/" + user + "/" + RSS_key + "/" + location;
     httpRequest = new XMLHttpRequest();
 
     if(!httpRequest){
@@ -81,71 +81,86 @@ function createDocument(){
     var ccTitle = createNewElement("div","cc-title",null);
     ccTitle.innerHTML = "Net Promoter Score(NPS)";
 
-    var ccChartNPS = createNewElement("div","cc-chart-NPS",null);
+    var ccChartNPS = createNewElement("table","cc-chart-NPS",null);
+    var ccChartNPSTbody = createNewElement("tbody",null,null);
 
-    var ccChart = createNewElement("div","cc-chart",null);
+    var ccChartNPSRow = createNewElement("tr",null,null);
+    var ccChartNPSRowChart = createNewElement("td",null,null);
+    var ccChartNPSRowNPS = createNewElement("td","cc-NPS",null);
 
-    var ccDetractChart = createNewElement("div",null,"cc-detract-chart");
-    var ccPassiveChart = createNewElement("div",null,"cc-passive-chart");
-    var ccPromoterChart = createNewElement("div",null,"cc-promoter-chart");
+    var ccChart = createNewElement("table","cc-chart",null);
+    var ccChartTbody = createNewElement("tbody",null,null);
 
-    makeChild(ccChart,[ccDetractChart,ccPassiveChart,ccPromoterChart]);
+    var ccChartRow = createNewElement("tr",null,null);
+    var ccDetractChart = createNewElement("td",null,"cc-detract-chart");
+    var ccPassiveChart = createNewElement("td",null,"cc-passive-chart");
+    var ccPromoterChart = createNewElement("td",null,"cc-promoter-chart");
 
-    var ccNPS = createNewElement("div","cc-NPS",null);
+    var ccDisplayNPS = createNewElement("table","cc-display-NPS",null);
+    var ccDisplayNPSTbody = createNewElement("tbody",null,null);
+    var ccDisplayNPSRow1 = createNewElement("tr",null,null);
+    var ccDisplayNPSRow2 = createNewElement("tr",null,null);
+    var ccNPSScore = createNewElement("td","cc-NPS-caption",null);
+    ccNPSScore.innerHTML = "NPS SCORE";
+    var ccDisplayNPSValue = createNewElement("td",null,"cc-display-NPS-value");
 
-    var ccDisplayNPS = createNewElement("div","cc-display-NPS",null);
-    ccDisplayNPS.innerHTML = "NPS SCORE";
+    makeChild(ccChartNPS,[ccChartNPSTbody]);
+    makeChild(ccChartNPSTbody,[ccChartNPSRow]);
+    makeChild(ccChartNPSRow,[ccChartNPSRowChart,ccChartNPSRowNPS]);
+    makeChild(ccChartRow,[ccDetractChart,ccPassiveChart,ccPromoterChart]);
+    makeChild(ccChartTbody,[ccChartRow]);
+    makeChild(ccChart,[ccChartTbody]);
+    makeChild(ccChartNPSRowChart,[ccChart]);
+    makeChild(ccChartNPSRowNPS,[ccDisplayNPS]);
+    makeChild(ccDisplayNPS,[ccDisplayNPSTbody]);
+    makeChild(ccDisplayNPSTbody,[ccDisplayNPSRow1,ccDisplayNPSRow2]);
+    makeChild(ccDisplayNPSRow1,[ccNPSScore]);
+    makeChild(ccDisplayNPSRow2,[ccDisplayNPSValue]);
 
-    var ccDisplayNPSValue = createNewElement("div",null,"cc-display-NPS-value");
+    var ccLabels = createNewElement("table","cc-labels",null);
+    var ccLabelsTbody = createNewElement("tbody",null,null);
+    var ccLabelsRow1 = createNewElement("tr",null,null);
+    var ccLabelsRow2 = createNewElement("tr",null,null);
 
-    makeChild(ccNPS,[ccDisplayNPS,ccDisplayNPSValue]);
-    makeChild(ccChartNPS,[ccChart,ccNPS]);
-    
-    var ccLabels = createNewElement("div","cc-labels",null);
+    var ccDetractors = createNewElement("td","cc-label-caption",null); 
+    var ccPassives = createNewElement("td","cc-label-caption",null);
+    var ccPromoters = createNewElement("td","cc-label-caption",null); 
 
-    var ccLabel1 = createNewElement("div","cc-label",null);
-    var ccLabel2 = createNewElement("div","cc-label",null);
-    var ccLabel3 = createNewElement("div","cc-label",null);
+    ccDetractors.colSpan = ccPassives.colSpan = ccPromoters.colSpan = 2;
 
-    var ccDetractorsPrint = createNewElement("div",null,null);
-    var ccPassivesPrint = createNewElement("div",null,null);
-    var ccPromotersPrint = createNewElement("div",null,null);
+    ccDetractors.innerHTML = "Detractors";
+    ccPassives.innerHTML = "Passives" ;
+    ccPromoters.innerHTML = "Promoters";
 
-    ccDetractorsPrint.innerHTML = "Detractors";
-    ccPassivesPrint.innerHTML = "Passives";
-    ccPromotersPrint.innerHTML = "Promoters";
+    ccLabelLegend1 = createNewElement("td","cc-label-legend",null);
+    ccLabelLegend2 = createNewElement("td","cc-label-legend",null);
+    ccLabelLegend3 = createNewElement("td","cc-label-legend",null);
 
-    var ccLabelDim1 = createNewElement("div","cc-label-dim",null);
-    var ccLabelDim2 = createNewElement("div","cc-label-dim",null);
-    var ccLabelDim3 = createNewElement("div","cc-label-dim",null);
+    ccDetractorsPercent = createNewElement("td",null,"cc-detractors-percent");
+    ccPassivesPercent = createNewElement("td",null,"cc-passives-percent");
+    ccPromotersPercent = createNewElement("td",null,"cc-promoters-percent");
 
-    var ccLabelProp1 = createNewElement("div","cc-label-prop",null);
-    var ccLabelProp2 = createNewElement("div","cc-label-prop",null);
-    var ccLabelProp3 = createNewElement("div","cc-label-prop",null);
+    ccLabelProp1 = createNewElement("div","cc-label-prop",null);
+    ccLabelProp2 = createNewElement("div","cc-label-prop",null);
+    ccLabelProp3 = createNewElement("div","cc-label-prop",null);
 
-    var ccDetractorsPercent = createNewElement("div",null,"cc-detractors-percent");
-    var ccPassivesPercent = createNewElement("div",null,"cc-passives-percent");
-    var ccPromotersPercent = createNewElement("div",null,"cc-promoters-percent");
+    makeChild(ccLabels,[ccLabelsTbody]);
+    makeChild(ccLabelsTbody,[ccLabelsRow1,ccLabelsRow2]);
+    makeChild(ccLabelsRow1,[ccDetractors,ccPassives,ccPromoters]);
+    makeChild(ccLabelsRow2,[ccLabelLegend1,ccDetractorsPercent,ccLabelLegend2,ccPassivesPercent,ccLabelLegend3,ccPromotersPercent]);
+    makeChild(ccLabelLegend1,[ccLabelProp1]);
+    makeChild(ccLabelLegend2,[ccLabelProp2]);
+    makeChild(ccLabelLegend3,[ccLabelProp3]);
 
-    makeChild(ccLabels,[ccLabel1,ccLabel2,ccLabel3]);
-
-    makeChild(ccLabel1,[ccDetractorsPrint,ccLabelDim1]);
-    makeChild(ccLabel2,[ccPassivesPrint,ccLabelDim2]);
-    makeChild(ccLabel3,[ccPromotersPrint,ccLabelDim3]);
-
-    makeChild(ccLabelDim1,[ccLabelProp1,ccDetractorsPercent]);
-    makeChild(ccLabelDim2,[ccLabelProp2,ccPassivesPercent]);
-    makeChild(ccLabelDim3,[ccLabelProp3,ccPromotersPercent]);
-    
     makeChild(ccBlackBox,[ccTitle,ccChartNPS,ccLabels]);
-   
+
     ccShowNPS(ccDisplayNPSValue);
     ccShowLabels(ccDetractorsPercent,ccPassivesPercent,ccPromotersPercent);
     ccShowChart(ccDetractChart,ccPassiveChart,ccPromoterChart);
 
     var Destination = document.getElementsByClassName("cc-widget-plug-in");
 
-    for(let i=0;i<Destination.length;i++){
+    for(var i=0;i<Destination.length;i++){
         makeChild(Destination[i],[ccBlackBox]);
     }
 
