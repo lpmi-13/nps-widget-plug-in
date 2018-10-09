@@ -72,8 +72,6 @@ function makeChild(parent_ele,arr){
     for(var i=0;i<arr.length;i++){
         parent_ele.appendChild(arr[i]);
     }
-
-    return parent_ele;
 }
 function createDocument(){
     var ccBlackBox = createNewElement("div","cc-black-box",null);
