@@ -23,7 +23,7 @@ function ccGetCall(user,RSS_key,location){
     httpRequest = new XMLHttpRequest();
 
     if(!httpRequest){
-        alert('Error');
+        alert('Giving up :( Cannot create an XMLHTTP instance');
         return false;
     }
     httpRequest.onreadystatechange = displayContents;
@@ -40,8 +40,11 @@ function ccGetCall(user,RSS_key,location){
                 npsScore = LatestScore[0].netpromoter.netPromoters;
                 createDocument(); 
             }
-            else{
-                alert('Problem');
+            else if(httpRequest.status === 404){
+                alert('NOT FOUND. The page you are requesting is currently unavailable');
+            }
+            else if(httpRequest.status === 500){
+                alert('INTERNAL SERVER ERROR. The server has encountered an error.');
             }
         }
     }
