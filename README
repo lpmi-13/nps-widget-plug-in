@@ -1,6 +1,6 @@
 1. This repository has 3 files - index.html, style.css, and nps2.js. 
 
-2. Since this is an an embeddable feature therefore, the index.js 'may' not execute independently or load with malfunctions.
+2. Since this is an embeddable feature therefore, the index.js 'may' not execute independently or load with malfunctions.
 
 3. Hence, to test this widget a test website will be sent on the 'NPS-widget-plug-in' team's group.
 
